@@ -7,15 +7,15 @@ import thunk from 'redux-thunk';
 import reducers from './ducks';
 
 const persistConfig = {
-  key: 'root',
+  key: 'root@animes',
   storage,
-  blacklist: ['']
+  whiteList: ['animes']
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers);
-const middleware = applyMiddleware(thunk)
+const middleware = applyMiddleware(thunk);
 
 const store = createStore(persistedReducer, middleware);
-const persistor = persistStore(store)
+const persistor = persistStore(store);
 
 export {store, persistor};

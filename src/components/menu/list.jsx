@@ -1,21 +1,25 @@
 import React from 'react';
 import {
   List,
-  ListItem,
+  Typography,
+  ListItem, 
   ListItemIcon,
   ListItemText
 } from '@material-ui/core'
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
+import FavoriteAnimes from '../anime/favorite'
+
 const ListItemsMenu = ({iconColor = "#8f2eff"}) => {
   return (
     <List>
-      <ListItem button>
+      <ListItem>
         <ListItemIcon>
-          <FavoriteIcon htmlColor={iconColor} />
+          <FavoriteIcon color="secondary"/>
         </ListItemIcon>
-        <ListItemText primary="Favorites" />
+        <ListItemText primary="Favorite Animes" />
       </ListItem>
+      <FavoriteAnimes />
     </List>
   )
 }

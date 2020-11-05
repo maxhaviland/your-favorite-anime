@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Nunito";
+  src: url("./assets/fonts/Nunito-Light.ttf");
+}
+
 body {
-  background-color: #1c1b1b;
+  padding: 0;
+  margin: 0;
+  background-color: #121010;
+  font-family: Nunito;
 }

@@ -3,13 +3,14 @@ import { animeService } from '../../services/animes'
 const types  = {
   like: '@like/anime',
   deslike: '@deslike/anime',
+  clearFavorites: '@clearFavorites/animes',
   get: '@get/animes',
   success: '@success/animes',
   failure: '@failure/animes',
   clear: '@clear/animes',
 }
 
-const actions = {
+export const actions = {
   selected: (anime) => ({
     type: types.selected,
     payload: anime
@@ -21,6 +22,9 @@ const actions = {
   deslike: (id) => ({
     type: types.deslike,
     payload: id
+  }),
+  clearFavorites: () => ({
+    type: types.clearFavorites
   }),
   get: () => ({
     type: types.get,
@@ -43,19 +47,34 @@ const initialState = {
   count: 0,
   favorites: [],
   loading: false,
-  status: null
+  status: null,
 }
 
 export default function animes (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case types.get:
-      return { ...state, loading: true };
+      return { ...initialState, favorites: state.favorites, loading: true };
+    case types.like: 
+      const animeExists = state.favorites.find(anime => anime.id === payload.id)
+      return animeExists 
+        ? {...state}
+        : {...state, favorites: state.favorites.concat(payload)}
+    case types.deslike: 
+      const animes = state.favorites.filter(anime => anime.id !== payload)
+      return {...state, favorites: animes}
+    case types.clearFavorites: 
+      return {...state, favorites: []}
     case types.success: 
-      console.log(1, payload)
-      return { ...state, data: payload.data.data, count: payload.data.count, status: payload?.status }
+      return { 
+        ...state, 
+        data: payload.data.data, 
+        count: payload.data.count, 
+        status: payload?.status, 
+        loading: false 
+      }
     case types.failure: 
-      return { ...state, status: payload?.status }
+      return { ...state, status: payload.status, loading: false }
     case types.clear: 
       return initialState
     default:
@@ -63,15 +82,25 @@ export default function animes (state = initialState, action) {
   }
 } 
 
-export const asyncGetAnimes = (id = '') => dispatch => {
+export const asyncGetAnimes = ({ text, limit = 12, offset = 0 }) => dispatch => {
+  const params = { text, limit, offset }
   dispatch(actions.get());
 
-  animeService.get(id)
-    .then(response => {
-      response.status === 200 
-      ? dispatch(actions.success(response))
-      : dispatch(actions.failure(response))
-    })    
-    .catch(error => dispatch(actions.failure(error.response)))
+  const treatment = (response) => {
+    response.status === 200 
+    ? dispatch(actions.success(response))
+    : dispatch(actions.failure(response))
+  } 
+  const error = e => dispatch(actions.failure(e.response));
 
+  if (text?.trim()) {
+    animeService.getByName(params)
+    .then(treatment)
+    .catch(error)
+  } else {
+    animeService.get(params)
+    .then(treatment)    
+    .catch(error)
+  }
 }
+

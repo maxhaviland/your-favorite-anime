@@ -3,10 +3,7 @@ import { grey, red } from '@material-ui/core/colors'
 
 export const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 240,
-  },
-  media: {
-    height: 100,
+    maxWidth: 'auto',
   },
   favoriteButton: {
     position: "absolute",
@@ -20,7 +17,9 @@ export const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     '&:hover': {
       color: red[ 'A200'],
-
     }
+  },
+  title: {
+    marginTop: theme.spacing(3)
   }
 }));
