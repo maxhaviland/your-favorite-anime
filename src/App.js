@@ -15,7 +15,7 @@ function App() {
 
   React.useEffect(() => {
     dispatch(asyncGetAnimes({limit:12}));
-  }, [])
+  }, [dispatch])
 
   return (
     <div className="App">
