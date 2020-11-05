@@ -15,9 +15,9 @@ export const style = css`
   right: 0;
 `;
 
-const Spinner = () => {
+const CustomSpinner = () => {
   const loading = useSelector(state => state.animes.loading)
   return <Spinner color="#b71c1c" css={style} size={120} loading={loading} />
 }
 
-export default Spinner;
+export default CustomSpinner;
