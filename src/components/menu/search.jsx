@@ -3,11 +3,11 @@ import {
   Paper,
   Input,
   InputAdornment,
-  IconButton
+  IconButton,
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { useDispatch } from 'react-redux';
-import { asyncGetAnimes } from '../../store/ducks/animes'
+import { asyncGetAnimes } from '../../store/ducks/animes';
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -16,31 +16,31 @@ const Search = () => {
   const handleText = ({ target }) => setText(target.value);
 
   const searchAnime = (event) => {
-    if(text.trim()) {
+    if (text.trim()) {
       event.preventDefault();
-      dispatch(asyncGetAnimes({ text }))
+      dispatch(asyncGetAnimes({ text }));
     }
   };
 
   return (
     <form onSubmit={searchAnime}>
       <Paper>
-        <Input 
-          style={{padding: 6}}
+        <Input
+          style={{ padding: 6 }}
           onChange={handleText}
           fullWidth
           placeholder="search your favorite anime"
-          endAdornment={
+          endAdornment={(
             <InputAdornment position="start">
               <IconButton onClick={searchAnime}>
                 <SearchIcon />
               </IconButton>
             </InputAdornment>
-          }
+          )}
         />
       </Paper>
     </form>
-  )
-}
+  );
+};
 
 export default Search;

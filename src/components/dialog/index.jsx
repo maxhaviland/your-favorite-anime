@@ -1,25 +1,28 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Dialog,
   AppBar,
   Toolbar,
-  IconButton, 
-  Button,
-  Typography
+  IconButton,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { useStyles } from './styles';
 
 const CustomDialog = ({ open, handleClose, children }) => {
-  const classes  = useStyles();
+  const classes = useStyles();
 
   return (
-    <Dialog  PaperProps={{
-    style: {
-      background: '#000000',
-    },
-  }}fullScreen open={open} onClose={handleClose}>
-    <AppBar color="secondary" className={classes.appBar}>
+    <Dialog
+      PaperProps={{
+        style: {
+          background: '#000000',
+        },
+      }}
+      fullScreen
+      open={open}
+      onClose={handleClose}
+    >
+      <AppBar color="secondary" className={classes.appBar}>
         <Toolbar>
           <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
             <CloseIcon />
@@ -28,7 +31,7 @@ const CustomDialog = ({ open, handleClose, children }) => {
       </AppBar>
       {children}
     </Dialog>
-  )
-}
+  );
+};
 
 export default CustomDialog;

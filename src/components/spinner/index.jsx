@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Spinner from 'react-spinners/BounceLoader';
-import {css} from "@emotion/core";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { css } from '@emotion/core';
 
 export const style = css`
   position: fixed;
@@ -16,8 +17,8 @@ export const style = css`
 `;
 
 const CustomSpinner = () => {
-  const loading = useSelector(state => state.animes.loading)
-  return <Spinner color="#b71c1c" css={style} size={120} loading={loading} />
-}
+  const loading = useSelector((state) => state.animes.loading);
+  return <Spinner color="#b71c1c" css={style} size={120} loading={loading} />;
+};
 
 export default CustomSpinner;

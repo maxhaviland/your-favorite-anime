@@ -9,8 +9,8 @@ import reducers from './ducks';
 const persistConfig = {
   key: 'root@animes',
   storage,
-  whiteList: ['animes']
-}
+  whiteList: ['animes'],
+};
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 const middleware = applyMiddleware(thunk);
@@ -18,4 +18,4 @@ const middleware = applyMiddleware(thunk);
 const store = createStore(persistedReducer, middleware);
 const persistor = persistStore(store);
 
-export {store, persistor};
+export { store, persistor };

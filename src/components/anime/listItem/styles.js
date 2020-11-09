@@ -1,20 +1,20 @@
-import { makeStyles } from '@material-ui/core/styles'
-import { grey, red } from '@material-ui/core/colors'
+import { makeStyles } from '@material-ui/core/styles';
+import { grey, red } from '@material-ui/core/colors';
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 240,
     '&:hover': {
-      filter: 'contrast(160%)'
-    }
+      filter: 'contrast(160%)',
+    },
   },
   media: {
     height: 100,
   },
   favoriteButton: {
-    position: "absolute",
-    top: theme.spacing(-1.5),
-    right: theme.spacing(-1.5),
+    position: 'absolute',
+    top: theme.spacing(0),
+    right: theme.spacing(0),
   },
   favoriteIcon: {
     color: grey[300],
@@ -22,8 +22,8 @@ export const useStyles = makeStyles(theme => ({
     borderRadius: 100,
     padding: theme.spacing(1),
     '&:hover': {
-      color: red[ 'A200'],
+      color: red.A200,
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
     },
-  }
+  },
 }));

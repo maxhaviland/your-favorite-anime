@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { useToasts } from 'react-toast-notifications'
+import { useSelector, useDispatch } from 'react-redux';
+import { useToasts } from 'react-toast-notifications';
 import {
   List,
   ListItem,
@@ -9,7 +9,7 @@ import {
   ListItemSecondaryAction,
   Avatar,
   IconButton,
-  Button
+  Button,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
@@ -20,10 +20,10 @@ import Details from '../../details';
 import { animeService } from '../../../services/animes';
 import { actions } from '../../../store/ducks/animes';
 
-import { useStyles } from './styles'
+import { useStyles } from './styles';
 
 const FavoriteAnimes = () => {
-  const favoriteAnimes = useSelector(state => state.animes.favorites);  
+  const favoriteAnimes = useSelector((state) => state.animes.favorites);
   const [openDetails, setOpenDetails] = useState(false);
   const [anime, setAnime] = useState({});
   const { addToast, removeAllToasts } = useToasts();
@@ -35,49 +35,47 @@ const FavoriteAnimes = () => {
   const handleCloseDetails = () => setOpenDetails(false);
 
   const selectedAnime = (animeSelected) => {
-    setAnime(animeSelected)
-    handleOpenDetails()
-  }
+    setAnime(animeSelected);
+    handleOpenDetails();
+  };
 
-  const deslikeAnime = anime => {
-    dispatch(actions.deslike(anime));
+  const deslikeAnime = (animeDeslike) => {
+    dispatch(actions.deslike(animeDeslike));
     removeAllToasts();
-    const message = `${animeService.getNameAnime(anime.attributes.titles)} removed`
-    addToast(message, { appearance: 'error', autoDismiss: true })
-  }
+    const message = `${animeService.getNameAnime(anime.attributes.titles)} removed`;
+    addToast(message, { appearance: 'error', autoDismiss: true });
+  };
   const clearFavorites = () => {
     dispatch(actions.clearFavorites());
     removeAllToasts();
     addToast('Favorites removed', { appearance: 'error', autoDismiss: true });
-  }
-
-
+  };
 
   return (
     <>
       <List>
-        {favoriteAnimes.map(favoriteAnime => (
-          <ListItem 
+        {favoriteAnimes.map((favoriteAnime) => (
+          <ListItem
             className={classes.root}
-            onClick={() => selectedAnime(favoriteAnime)} 
+            onClick={() => selectedAnime(favoriteAnime)}
             key={favoriteAnime.id}
-            >
+          >
             <ListItemAvatar>
-              <Avatar 
+              <Avatar
                 variant="square"
                 alt={favoriteAnime.attributes.titles.en}
                 src={favoriteAnime.attributes.posterImage.large}
               />
             </ListItemAvatar>
-            <ListItemText 
-              primary={animeService.getNameAnime(favoriteAnime.attributes.titles)} 
+            <ListItemText
+              primary={animeService.getNameAnime(favoriteAnime.attributes.titles)}
             />
             <ListItemSecondaryAction>
-              <IconButton 
+              <IconButton
                 onClick={() => deslikeAnime(favoriteAnime)}
-                className={classes.deleteIcon} 
-                color="secondary" 
-                edge="end" 
+                className={classes.deleteIcon}
+                color="secondary"
+                edge="end"
                 aria-label="delete"
               >
                 <DeleteIcon />
@@ -88,12 +86,12 @@ const FavoriteAnimes = () => {
       </List>
       {
         favoriteAnimes.length > 0 && (
-          <Button 
+          <Button
             size="large"
-            fullWidth 
-            color="secondary" 
+            fullWidth
+            color="secondary"
             onClick={clearFavorites}
-            startIcon={<DeleteForeverIcon/>}
+            startIcon={<DeleteForeverIcon />}
           >
             clear
           </Button>
@@ -103,7 +101,7 @@ const FavoriteAnimes = () => {
         <Details anime={anime} />
       </CustomDialog>
     </>
-  )
-}
+  );
+};
 
 export default FavoriteAnimes;

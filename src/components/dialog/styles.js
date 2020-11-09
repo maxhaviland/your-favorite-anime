@@ -1,9 +1,8 @@
-import { makeStyles } from '@material-ui/core/styles'
-import { grey, red } from '@material-ui/core/colors'
+import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   appBar: {
     position: 'relative',

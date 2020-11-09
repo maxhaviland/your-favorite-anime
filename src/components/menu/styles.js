@@ -1,10 +1,9 @@
-import { makeStyles } from '@material-ui/core/styles'
-import { grey, red } from '@material-ui/core/colors'
+import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles((theme) => ({
   drawer: {
     background: theme.palette.primary.main,
-    color: theme.palette.secondary.main
+    color: theme.palette.secondary.main,
   },
   list: {
     width: 300,
@@ -14,6 +13,6 @@ export const useStyles = makeStyles(theme => ({
   },
   menuButton: {
     position: 'fixed',
-    padding: theme.spacing(4)
-  }
+    padding: theme.spacing(4),
+  },
 }));

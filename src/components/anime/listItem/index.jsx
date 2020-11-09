@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useToasts } from 'react-toast-notifications'
+import { useToasts } from 'react-toast-notifications';
 import {
   Card,
   CardMedia,
@@ -11,7 +11,7 @@ import {
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { animeService } from '../../../services/animes';
 
-import { actions } from '../../../store/ducks/animes'
+import { actions } from '../../../store/ducks/animes';
 
 import CustomDialog from '../../dialog';
 import Details from '../../details';
@@ -27,38 +27,39 @@ const ListItem = ({ anime }) => {
   const handleOpenDetails = () => setOpenDetails(true);
   const handleCloseDetails = () => setOpenDetails(false);
 
-  const favoriteAnime = anime => {
-    dispatch(actions.like(anime));
+  const favoriteAnime = (animeFavorite) => {
+    dispatch(actions.like(animeFavorite));
     removeAllToasts();
     const message = `${animeService.getNameAnime(anime.attributes.titles)} added to favorites :)`;
     addToast(message, { appearance: 'info', autoDismiss: true });
-  }
+  };
 
   return (
     <>
       <Card className={classes.root}>
         <CardActionArea>
-          <CardMedia 
+          <CardMedia
             onClick={handleOpenDetails}
             component="img"
             alt={anime.attributes.titles.en}
-            src={anime.attributes.posterImage.large} />
-          <IconButton 
-            onClick={() => favoriteAnime(anime)} 
+            src={anime.attributes.posterImage.large}
+          />
+          <IconButton
+            onClick={() => favoriteAnime(anime)}
             className={classes.favoriteButton}
-            >
-            <FavoriteIcon className={classes.favoriteIcon} fontSize="large"/>
+          >
+            <FavoriteIcon className={classes.favoriteIcon} fontSize="large" />
           </IconButton>
-            <Typography noWrap align="center">
-              {animeService.getNameAnime(anime.attributes.titles)}
-            </Typography>
-        </CardActionArea> 
+          <Typography noWrap align="center">
+            {animeService.getNameAnime(anime.attributes.titles)}
+          </Typography>
+        </CardActionArea>
       </Card>
       <CustomDialog open={openDetails} handleClose={handleCloseDetails}>
         <Details anime={anime} />
       </CustomDialog>
     </>
-  )
-}
+  );
+};
 
 export default ListItem;
