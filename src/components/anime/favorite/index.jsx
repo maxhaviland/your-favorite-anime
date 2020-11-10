@@ -40,9 +40,9 @@ const FavoriteAnimes = () => {
   };
 
   const deslikeAnime = (animeDeslike) => {
-    dispatch(actions.deslike(animeDeslike));
+    dispatch(actions.deslike(animeDeslike.id));
     removeAllToasts();
-    const message = `${animeService.getNameAnime(anime.attributes.titles)} removed`;
+    const message = `${animeService.getNameAnime(animeDeslike.attributes.titles)} removed`;
     addToast(message, { appearance: 'error', autoDismiss: true });
   };
   const clearFavorites = () => {
@@ -63,7 +63,7 @@ const FavoriteAnimes = () => {
             <ListItemAvatar>
               <Avatar
                 variant="square"
-                alt={favoriteAnime.attributes.titles.en}
+                alt={animeService.getNameAnime(favoriteAnime.attributes.titles)}
                 src={favoriteAnime.attributes.posterImage.large}
               />
             </ListItemAvatar>

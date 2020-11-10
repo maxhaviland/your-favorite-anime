@@ -22,4 +22,21 @@ export const useStyles = makeStyles((theme) => ({
   title: {
     marginTop: theme.spacing(3),
   },
+  mainBackground: {
+    position: 'fixed',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    opacity: 0.7,
+    height: '100vh',
+    width: '100vw',
+    zIndex: 0,
+  },
+  secondaryBackground: {
+    position: 'fixed',
+    height: '100vh',
+    width: '100vw',
+    background: 'rgba(0, 0, 0, 0.8)',
+    zIndex: 1,
+    backgroundRepeat: false,
+  },
 }));

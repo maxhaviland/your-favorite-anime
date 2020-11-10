@@ -13,8 +13,13 @@ import { useStyles } from './styles';
 const Details = ({ anime }) => {
   const classes = useStyles();
   return (
-    <Grid container justify="space-between" alignItems="center" alignContent="center">
-      <Grid item md={3} sm={10}>
+    <Grid container justify="space-between">
+      <Grid
+        className={classes.mainBackground}
+        style={{ backgroundImage: `url(${anime.attributes.posterImage.large}})` }}
+      />
+      <Grid className={classes.secondaryBackground} />
+      <Grid item md={3} sm={10} style={{ zIndex: 2 }}>
         <Card>
           <CardMedia
             component="img"
@@ -23,7 +28,7 @@ const Details = ({ anime }) => {
           />
         </Card>
       </Grid>
-      <Grid item md={6} sm={12}>
+      <Grid item md={6} sm={12} style={{ zIndex: 3 }}>
         <Container>
           <Typography className={classes.title} paragraph color="secondary" variant="h4">
             {animeService.getNameAnime(anime.attributes.titles)}

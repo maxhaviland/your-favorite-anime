@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { animeService } from '../../services/animes';
 
 const types = {
@@ -52,17 +53,17 @@ const initialState = {
 
 export default function animes(state = initialState, action) {
   const { type, payload } = action;
-  const likedAnimes = state.favorites.filter((anime) => anime.id !== payload);
-  const animeExists = state.favorites.find((anime) => anime.id === payload.id);
 
   switch (type) {
     case types.get:
       return { ...initialState, favorites: state.favorites, loading: true };
     case types.like:
+      const animeExists = state.favorites.find((anime) => anime.id === payload.id);
       return animeExists
         ? { ...state }
         : { ...state, favorites: state.favorites.concat(payload) };
     case types.deslike:
+      const likedAnimes = state.favorites.filter((anime) => anime.id !== payload);
       return { ...state, favorites: likedAnimes };
     case types.clearFavorites:
       return { ...state, favorites: [] };

@@ -21,6 +21,6 @@ export const animeService = {
     return response;
   },
   getNameAnime(titles) {
-    return titles.en || titles.en_jp || titles.ja_jp || '';
+    return titles?.en || titles?.en_jp || titles?.ja_jp || '';
   },
 };

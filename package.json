@@ -1,5 +1,6 @@
 {
   "name": "your-favorite-anime",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
