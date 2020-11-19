@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useToasts } from 'react-toast-notifications';
 import {
   Card,
@@ -24,14 +24,39 @@ const ListItem = ({ anime }) => {
   const classes = useStyles();
   const [openDetails, setOpenDetails] = useState(false);
 
+  const favoriteAnimes = useSelector((state) => state.animes.favorites);
+
   const handleOpenDetails = () => setOpenDetails(true);
+
   const handleCloseDetails = () => setOpenDetails(false);
 
-  const favoriteAnime = (animeFavorite) => {
-    dispatch(actions.like(animeFavorite));
+  const favoriteAnimeAlreadyExists = (animeID) => {
+    const animeAlreadyExists = animeService
+      .favoriteAnimeAlreadyExists(favoriteAnimes, animeID);
+
+    return animeAlreadyExists;
+  };
+
+  const deslikeAnimeFavorite = (animeFavorite) => {
+    dispatch(actions.deslike(animeFavorite.id));
     removeAllToasts();
-    const message = `${animeService.getNameAnime(anime.attributes.titles)} added to favorites :)`;
-    addToast(message, { appearance: 'info', autoDismiss: true });
+    const message = `${animeService.getNameAnime(animeFavorite.attributes.titles)} removed`;
+    addToast(message, { appearance: 'error', autoDismiss: true });
+  };
+
+  const favoriteAnime = (animeFavorite) => {
+    if (!favoriteAnimeAlreadyExists(animeFavorite.id)) {
+      dispatch(actions.like(animeFavorite));
+      removeAllToasts();
+      const message = `${animeService.getNameAnime(anime.attributes.titles)} added to favorites :)`;
+      addToast(message, { appearance: 'info', autoDismiss: true });
+    }
+  };
+
+  const handleAnimeFavorite = (animeFavorite) => {
+    if (favoriteAnimeAlreadyExists(anime.id)) {
+      deslikeAnimeFavorite(animeFavorite);
+    } else favoriteAnime(animeFavorite);
   };
 
   return (
@@ -45,10 +70,17 @@ const ListItem = ({ anime }) => {
             src={anime.attributes.posterImage.large}
           />
           <IconButton
-            onClick={() => favoriteAnime(anime)}
+            onClick={() => handleAnimeFavorite(anime)}
             className={classes.favoriteButton}
           >
-            <FavoriteIcon className={classes.favoriteIcon} fontSize="large" />
+            <FavoriteIcon
+              className={
+                favoriteAnimeAlreadyExists(anime.id)
+                  ? classes.favoriteIconSelected
+                  : classes.favoriteIcon
+              }
+              fontSize="large"
+            />
           </IconButton>
           <Typography noWrap align="center">
             {animeService.getNameAnime(anime.attributes.titles)}

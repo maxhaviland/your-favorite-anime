@@ -4,8 +4,7 @@ import { useDispatch } from 'react-redux';
 import { ToastProvider } from 'react-toast-notifications';
 import { asyncGetAnimes } from './store/ducks/animes';
 
-import Menu from './components/menu';
-import AnimeList from './components/anime/list';
+import Home from './pages/home';
 import Spinner from './components/spinner';
 import theme from './theme';
 import './styles.css';
@@ -22,8 +21,7 @@ function App() {
       <ToastProvider>
         <ThemeProvider theme={theme()}>
           <Spinner />
-          <Menu />
-          <AnimeList />
+          <Home />
         </ThemeProvider>
       </ToastProvider>
     </div>
