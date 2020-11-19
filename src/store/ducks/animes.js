@@ -70,9 +70,9 @@ export default function animes(state = initialState, action) {
     case types.success:
       return {
         ...state,
-        data: payload.data.data,
-        count: payload.data.count,
-        status: payload?.status,
+        data: payload.animes,
+        count: payload.count,
+        status: payload.status,
         loading: false,
       };
     case types.failure:
@@ -88,24 +88,12 @@ export const asyncGetAnimes = ({ text, limit = 12, offset = 0 }) => (dispatch) =
   const params = { text, limit, offset };
   dispatch(actions.get());
 
-  const treatment = (response) => {
-    // eslint-disable-next-line no-unused-expressions
-    if (response.status === 200) {
-      dispatch(actions.success(response));
-    } else {
-      dispatch(actions.failure(response));
-    }
-  };
-
-  const error = (e) => dispatch(actions.failure(e.response));
-
-  if (text?.trim()) {
-    animeService.getByName(params)
-      .then(treatment)
-      .catch(error);
-  } else {
-    animeService.get(params)
-      .then(treatment)
-      .catch(error);
-  }
+  animeService.get(params)
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(actions.success(response));
+      } else {
+        dispatch(actions.failure(response));
+      }
+    });
 };

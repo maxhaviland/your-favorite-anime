@@ -26,4 +26,14 @@ export const useStyles = makeStyles((theme) => ({
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
     },
   },
+  favoriteIconSelected: {
+    color: red.A200,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    borderRadius: 100,
+    padding: theme.spacing(1),
+    '&:hover': {
+      color: grey[300],
+      backgroundColor: 'rgba(255, 0, 0, 0.7)',
+    },
+  },
 }));
